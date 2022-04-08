@@ -1,0 +1,30 @@
+server {
+    listen              443 ssl http2;
+    listen              [::]:443 ssl http2;
+    server_name         example.fr;
+    root                /var/www/example.fr/public;
+
+    # SSL
+    ssl_certificate     /certs/example.fr/fullchain.pem;
+    ssl_certificate_key /certs/example.fr/privkey.pem;
+
+    # security
+    include             nginxconfig.io/security.conf;
+
+    # reverse proxy
+    location / {
+        proxy_pass http://frontend:80;
+        include    nginxconfig.io/proxy.conf;
+    }
+
+    # additional config
+    #include nginxconfig.io/general.conf;
+}
+
+# HTTP redirect
+server {
+    listen      80;
+    listen      [::]:80;
+    server_name .example.fr .example.fr;
+    return      301 https://example.fr$request_uri;
+}
