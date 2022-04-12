@@ -1,0 +1,18 @@
+---
+project_name: statutis_project
+
+
+ansistrano_deploy_to: /statutis
+ansistrano_deploy_via: git
+ansistrano_current_via: "symlink"
+ansistrano_allow_anonymous_stats: no
+
+ansistrano_git_repo: "https://github.com/Statutis/docker-compose"
+ansistrano_git_branch: "main"
+ansistrano_shared_paths: ["nginx/sites"]
+ansistrano_ensure_shared_paths_exist: no
+ansistrano_ensure_basedirs_shared_files_exist: no
+ansistrano_keep_releases: 5
+
+ansistrano_before_symlink_shared_tasks_file: "{{ playbook_dir }}/tasks/before_symlink.yml"
+ansistrano_after_symlink_shared_tasks_file: "{{ playbook_dir }}/tasks/after_symlink.yml"

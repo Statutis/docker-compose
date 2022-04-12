@@ -1,0 +1,13 @@
+---
+- name: Create shared files if not exists
+  file:
+    path: /statutis/shared/nginx/sites
+    state: directory
+    mode: 0755
+    group: "{{ ansible_user }}"
+    owner: "{{ ansible_user }}"
+- name: Docker compose pull
+  args:
+    chdir: "{{ ansistrano_release_path.stdout }}"
+  shell:
+    cmd: "docker-compose -p {{ project_name }} pull"
