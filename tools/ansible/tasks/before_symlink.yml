@@ -1,11 +1,19 @@
 ---
 - name: Create shared files if not exists
   file:
-    path: /statutis/shared/nginx/sites
+    path: "{{ ansistrano_deploy_to }}/shared/nginx/sites"
     state: directory
     mode: 0755
     group: "{{ ansible_user }}"
     owner: "{{ ansible_user }}"
+- name: Nginx | Create front vhost
+  template:
+    src: front.conf.j2
+    dest: "{{ ansistrano_deploy_to }}/shared/nginx/sites/front.conf"
+- name: Nginx | Create api vhost
+  template:
+    src: api.conf.j2
+    dest: "{{ ansistrano_deploy_to }}/shared/nginx/sites/api.conf"
 - name: Docker compose pull
   args:
     chdir: "{{ ansistrano_release_path.stdout }}"

@@ -1,6 +1,7 @@
 ---
 project_name: statutis_project
-
+domain_front: statutis.silvain.eu
+domain_api: api.statutis.silvain.eu
 
 ansistrano_deploy_to: /statutis
 ansistrano_deploy_via: git

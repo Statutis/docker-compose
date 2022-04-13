@@ -1,6 +1,5 @@
 ---
 - hosts: all
-  remote_user: simon
   tasks:
     - name: run ansible galaxy
       local_action: command ansible-galaxy install -r requirements.yml --ignore-errors
