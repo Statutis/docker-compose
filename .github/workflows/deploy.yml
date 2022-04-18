@@ -5,6 +5,12 @@
 
 name: Deploy sport.silvain.eu
 
+on:
+  workflow_call:
+    secrets:
+      Git:
+        required: true
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
