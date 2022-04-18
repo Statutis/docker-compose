@@ -1,0 +1,30 @@
+server {
+    listen              443 ssl http2;
+    listen              [::]:443 ssl http2;
+    server_name         {{ domain_api }};
+    root                /var/www/domain_api/public;
+
+    # SSL
+    ssl_certificate     "/certs/{{ domain_api }}/fullchain1.pem";
+    ssl_certificate_key "/certs/{{ domain_api }}/privkey1.pem";
+
+    # security
+    include             nginxconfig.io/security.conf;
+
+    # reverse proxy
+    location / {
+        proxy_pass http://api:80;
+        include    nginxconfig.io/proxy.conf;
+    }
+
+    # additional config
+    #include nginxconfig.io/general.conf;
+}
+
+# HTTP redirect
+server {
+    listen      80;
+    listen      [::]:80;
+    server_name "{{ domain_api }}";
+    return      301 "https://{{ domain_api }}$request_uri";
+}

@@ -1,0 +1,11 @@
+---
+- name: docker-compose down -v --remove-orphans
+  args:
+    chdir: "{{ ansistrano_release_path.stdout }}"
+  shell:
+    cmd: "docker-compose down -v --remove-orphans"
+- name: "docker-compose up -p {{ project_name }}"
+  args:
+    chdir: "{{ ansistrano_release_path.stdout }}"
+  shell:
+    cmd: "docker-compose -p {{ project_name }} up -d"

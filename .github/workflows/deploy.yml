@@ -1,0 +1,57 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Deploy sport.silvain.eu
+
+on:
+  workflow_call:
+    secrets:
+      Git:
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    container: williamyeh/ansible:centos7
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - uses: chrnorm/deployment-action@releases/v1
+        name: Create GitHub deployment
+        id: deployment
+        with:
+          token: "${{ github.token }}"
+          target_url: https://statutis.silvain.eu
+          environment: production
+
+      - name: Log in to the Container registry
+        run: |
+          eval $(ssh-agent -s)
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          echo "${{ secrets.Git }}" | tr -d '\r' | ssh-add -
+          touch  ~/.ssh/config
+          echo -e "Host *\n\tStrictHostKeyChecking no\n\n" >> ~/.ssh/config
+          export ANSIBLE_HOST_KEY_CHECKING=False
+          ansible-playbook -i tools/ansible/inventory --extra-vars "ansible_user=simon" tools/ansible/deploy.yaml
+
+      - name: Update deployment status (success)
+        if: success()
+        uses: chrnorm/deployment-status@releases/v1
+        with:
+          token: "${{ github.token }}"
+          target_url: https://statutis.silvain.eu
+          state: "success"
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+
+      - name: Update deployment status (failure)
+        if: failure()
+        uses: chrnorm/deployment-status@releases/v1
+        with:
+          token: "${{ github.token }}"
+          target_url: https://statutis.silvain.eu
+          state: "failure"
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
