@@ -10,6 +10,8 @@ on:
     secrets:
       Git:
         required: true
+      Api:
+        required: true
 
 jobs:
   deploy:
@@ -35,7 +37,7 @@ jobs:
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
           echo "${{ secrets.Git }}" | tr -d '\r' | ssh-add -
-          echo "${{ secrets.API }}" > secret.txt
+          echo "${{ secrets.Api }}" > secret.txt
           touch  ~/.ssh/config
           echo -e "Host *\n\tStrictHostKeyChecking no\n\n" >> ~/.ssh/config
           export ANSIBLE_HOST_KEY_CHECKING=False
