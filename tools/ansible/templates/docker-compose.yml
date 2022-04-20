@@ -44,6 +44,21 @@ services:
     networks:
       - api
 
+  cron:
+    image: ghcr.io/statutis/cron:main
+    environment:
+      - ConnectionStrings__hostname=postgres
+      - ConnectionStrings__username=admin
+      - ConnectionStrings__password=your_secret_password
+      - ConnectionStrings__database=statutis
+      - Application__secondsBetweenCheck=3600
+    restart: unless-stopped
+    depends_on:
+      - postgres
+      - api
+    networks:
+      - api
+
   postgres:
     image: postgres
     environment:
@@ -55,6 +70,7 @@ services:
       - postgress:/var/lib/postgresql/data
     networks:
       - api
+  
 
 volumes:
   postgress:
