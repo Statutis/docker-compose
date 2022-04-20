@@ -6,6 +6,10 @@
     mode: 0755
     group: "{{ ansible_user }}"
     owner: "{{ ansible_user }}"
+- name: Create docker_compose
+  template:
+    src: docker-compose.yml
+    dest: "{{ ansistrano_release_path.stdout }}/docker-compose.yml"
 - name: Nginx | Create front vhost
   template:
     src: front.conf.j2

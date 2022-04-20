@@ -38,6 +38,7 @@ services:
       - ConnectionStrings__username=admin
       - ConnectionStrings__password=your_secret_password
       - ConnectionStrings__database=statutis
+      - JWT__secret={{ statutis_api_key }}
     depends_on:
       - postgres
     networks:
