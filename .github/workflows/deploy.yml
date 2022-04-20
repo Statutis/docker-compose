@@ -35,10 +35,12 @@ jobs:
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
           echo "${{ secrets.Git }}" | tr -d '\r' | ssh-add -
+          echo "${{ secrets.API }}" > secret.txt
           touch  ~/.ssh/config
           echo -e "Host *\n\tStrictHostKeyChecking no\n\n" >> ~/.ssh/config
           export ANSIBLE_HOST_KEY_CHECKING=False
-          ansible-playbook -i tools/ansible/inventory --extra-vars "ansible_user=simon" tools/ansible/deploy.yaml
+          ansible-playbook -i tools/ansible/inventory --extra-vars "ansible_user=simon" tools/ansible/deploy.yaml --vault-password-file ./secret.txt
+          rm secret.txt
 
       - name: Update deployment status (success)
         if: success()
