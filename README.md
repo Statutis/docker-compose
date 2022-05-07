@@ -27,7 +27,7 @@ Vous pouvez donc par la suite accéder à la documentation de l'API : `http://lo
 ***EN PRODUCTION : il faut absolument modifier la variable d'environnement `JWT__secret` du conteneur `api`.***
 
 
-### Lancement du site frontend
+### Lancement du site frontend
 
 Il faut tout d'abord cloner le dépôt:
 
