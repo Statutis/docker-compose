@@ -3,11 +3,11 @@
 
 ## Déploiement en production : Ansible
 
-Pour déployer sur le serveur de production de Statutis, nous utilisons le role Ansistrano, déclencher par une Github Action, qui va se connecter sur le serveur de production et déployer notre application, en utilisant notament Docker et Docker Compose.
+Pour déployer sur le serveur de production de Statutis, nous utilisons le rôle Ansistrano déclenché par une Github Action, qui va se connecter sur le serveur de production et déployer notre application, en utilisant notament Docker et Docker Compose.
 
 ## Déploiement en local
 
-Pour déployer, l'application statutis sur votre machine, vous devez disposer de Docker et Docker Compose.
+Pour déployer l'application statutis sur votre machine, vous devez disposer de Docker et Docker Compose.
 
 ### Lancement de l'api
 
@@ -18,7 +18,7 @@ docker-compose up -d
 ```
 
 Cela aura pour effet de démarrer 3 conteneurs :
- - Une base de donnée postgress
+ - Une base de données Postgres
  - Le conteneur de la tâche plannifiée
  - Le serveur de l'API, exposant un serveur web sur le port 3001
 
@@ -51,6 +51,6 @@ docker run --rm -it -v "$(pwd):/app" -w "/app" node build
 docker run --rm -it -v "$(pwd):/app" -w "/app" -p 3001:3001 node yarn preview --port 3001 --host
 ```
 
-On peut alors accèder au site : `http://localhost:3000`
+On peut alors accéder au site : `http://localhost:3000`
 
 ***EN PRODUCTION : Il vaut mieux utiliser un serveur web comme NGINX.***
