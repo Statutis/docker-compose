@@ -1,0 +1,57 @@
+version: '3.1'
+
+networks:
+  api:
+    driver: "bridge"
+  frontend:
+    driver: "bridge"
+
+services:
+
+  api:
+    image: ghcr.io/statutis/api:main
+    ports:
+      - 3000:80
+    environment:
+      - ConnectionStrings__hostname=postgres
+      - ConnectionStrings__username=admin
+      - ConnectionStrings__password=your_secret_password
+      - ConnectionStrings__database=statutis
+      - JWT__secret=123456789
+      - Application__origin__0=http://localhost:3001
+      - Application__origin__1=http://localhost:3000
+    depends_on:
+      - postgres
+    networks:
+      - api
+
+  cron:
+    image: ghcr.io/statutis/cron:main
+    environment:
+      - ConnectionStrings__hostname=postgres
+      - ConnectionStrings__username=admin
+      - ConnectionStrings__password=your_secret_password
+      - ConnectionStrings__database=statutis
+      - Application__secondsBetweenCheck=3600
+    restart: unless-stopped
+    depends_on:
+      - postgres
+      - api
+    networks:
+      - api
+
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=your_secret_password
+      - POSTGRES_DB=statutis
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - postgress:/var/lib/postgresql/data
+    networks:
+      - api
+  
+
+volumes:
+  postgress:
