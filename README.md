@@ -3,7 +3,7 @@
 
 ## Déploiement en production : Ansible
 
-Pour déployer sur le serveur de production de Statutis, nous utilisons le rôle Ansistrano déclenché par une Github Action, qui va se connecter sur le serveur de production et déployer notre application, en utilisant notament Docker et Docker Compose.
+Pour déployer sur le serveur de production de Statutis, nous utilisons le rôle Ansistrano déclenché par une Github Action, qui va se connecter sur le serveur de production et déployer notre application, en utilisant notamment Docker et Docker Compose.
 
 ## Déploiement en local
 
@@ -19,7 +19,7 @@ docker-compose up -d
 
 Cela aura pour effet de démarrer 3 conteneurs :
  - Une base de données Postgres
- - Le conteneur de la tâche plannifiée
+ - Le conteneur de la tâche planifiée
  - Le serveur de l'API, exposant un serveur web sur le port 3001
 
 Vous pouvez donc par la suite accéder à la documentation de l'API : `http://localhost:3001/swagger`.
@@ -35,7 +35,7 @@ Il faut tout d'abord cloner le dépôt:
 git clone https://github.com/Statutis/frontend.git
 ```
 
-Puis modifier le fichier d'envrionnement `.env`, afin d'indiquer l'url du site et de l'API. 
+Puis modifier le fichier d’environnement `.env`, afin d'indiquer l'url du site et de l'API. 
 Voici ce fichier dans notre cas : 
 
 ```env
