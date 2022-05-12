@@ -48,7 +48,7 @@ Une fois la configuration achevée, il ne nous reste plus qu'à compiler et lanc
 ```bash
 docker run --rm -it -v "$(pwd):/app" -w "/app" node yarn
 docker run --rm -it -v "$(pwd):/app" -w "/app" node yarn build
-docker run --rm -it -v "$(pwd):/app" -w "/app" -p 3001:3001 node yarn preview --port 3001 --host
+docker run --rm -it -v "$(pwd):/app" -w "/app" -p 3000:3000 node yarn preview --port 3000 --host
 ```
 
 On peut alors accéder au site : `http://localhost:3000`
