@@ -9,7 +9,7 @@ services:
   api:
     image: ghcr.io/statutis/api:main
     ports:
-      - 3000:80
+      - 3001:80
     environment:
       - ConnectionStrings__hostname=postgres
       - ConnectionStrings__username=admin
