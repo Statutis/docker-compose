@@ -39,8 +39,8 @@ Puis modifier le fichier d’environnement `.env`, afin d'indiquer l'url du site
 Voici ce fichier dans notre cas : 
 
 ```env
-APP_URL=http://localhost:3001
-APP_API_URL=http://localhost:3000
+APP_URL=http://localhost:3000
+APP_API_URL=http://localhost:3001
 ```
 
 Une fois la configuration achevée, il ne nous reste plus qu'à compiler et lancer notre application
